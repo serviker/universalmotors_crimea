@@ -1,7 +1,8 @@
 'use client';
 
-import { useFormState } from 'react-dom';
+import { useActionState, useEffect } from 'react';
 import { loginAction, type LoginFormState } from '@/lib/actions/auth';
+import { useRouter } from 'next/navigation';
 import styles from './LoginForm.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,7 +10,14 @@ import Link from 'next/link';
 const initialState: LoginFormState = { message: '' };
 
 export default function LoginForm() {
-    const [state, formAction] = useFormState(loginAction, initialState);
+    const [state, formAction] = useActionState(loginAction, initialState);
+    const router = useRouter();
+
+    useEffect(() => {
+        if (state.success) {
+            router.push('/');
+        }
+    }, [state.success, router]);
 
     return (
         <div className={styles.wrapper}>

@@ -1,8 +1,8 @@
-// app/api/login/route.ts
+// /app/(site)/api/auth/login/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import jwt from 'jsonwebtoken';
 import { connectToDatabase } from '@/lib/mongodb';
-import User from "@/models/User"; // адаптируй путь к модели
+import User from "@/models/User";
 import bcrypt from "bcryptjs";
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
@@ -17,8 +17,6 @@ export async function POST(req: NextRequest) {
     if (!user || !(await bcrypt.compare(password, user.password))) {
         return NextResponse.json({ error: "Неверный email или пароль" }, { status: 401 });
     }
-
-   // const token = await createJWT({ id: user._id, email: user.email });
 
     const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, {
         expiresIn: '7d',

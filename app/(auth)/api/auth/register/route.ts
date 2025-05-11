@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+/*import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { connectToDatabase } from '@/lib/mongodb';
 import User from '@/models/User';
@@ -71,4 +71,4 @@ export async function POST(req: Request) {
         console.error('Ошибка при регистрации:', error);
         return NextResponse.json({ error: 'Ошибка регистрации' }, { status: 500 });
     }
-}
+}*/
